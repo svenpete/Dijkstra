@@ -42,7 +42,7 @@ public:
 
 
 
-    void GraphHolen()
+    void readGraph()
     {
         ifstream f(filename);
         string line;
@@ -69,7 +69,7 @@ public:
         cout << "ANz nodes: " << std::to_string(graph.size()) << endl;
     }
 
-    void erstellDijk()
+    void createGraph()
     {
         dist.resize(graph.size());
         prev.resize(graph.size());
@@ -87,7 +87,7 @@ public:
             dist[0] = 0;
     }
 
-    void execDijk()
+    void execGraph()
     {
         for(unsigned i = 0; i < graph.size(); i++) {
             int minDistIdx = getMinDist();
