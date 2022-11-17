@@ -1,37 +1,24 @@
 #include <iostream>
 #include <thread>
-#include "DijkstraPar.h"
-#include "DijkstraSeq.h"
+#include "DijkstraParrallel.h"
+
 using namespace std;
 int main(int argc, char *argv[])
 {
     cout << "Hello Dijkstra's World!" << endl;
 
-    auto filename = "USA-road-d.NY.gr";
-    //auto filename = "rom.gr";
-
-    auto par = DijkstraPar(filename);
-    auto seq = DijkstraSeq(filename);
-
-    par.getGraph();
-
-    par.initDijkstra();
-
-    par.doDijkstra();
-
-    seq.getGraph();
-
-    seq.initDijkstra();
-
-    seq.doDijkstra();
+    auto filename = "/home/svenpete/CLionProjects/Dijkstra/USA-road-d.NY.gr";
 
 
-    double speedUp = (seq.tsum / par.tsum);
-    const auto coreCnt = std::thread::hardware_concurrency();
-    double efficiency = speedUp / (coreCnt > 0 ? coreCnt : 1) * 100;
+    auto par = DijkstraParrallel(filename);
 
-    cout << "\t\tSpeed-Up \t" << std::setprecision(3) << setw(5) << speedUp << "\n";
-    cout << "\t\tEfficiency \t" << std::setprecision(3) << setw(5) << efficiency << " %\n";
+
+    par.GraphHolen();
+
+    par.erstellDijk();
+
+    par.execDijk();
+    
 
     string input;
     do {
@@ -39,7 +26,8 @@ int main(int argc, char *argv[])
         getline(cin, input);
         cout << endl;
         int dest = input == "max" ? par.graph.size() - 1 : atoi(input.c_str());
-
+        if(dest > 0)
+            par.printHops(dest);
     } while(input != "exit");
 
     return 0;
