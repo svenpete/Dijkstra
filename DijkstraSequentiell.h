@@ -27,7 +27,7 @@ typedef struct
     unsigned dist;
 } dest_to_dist;
 
-class DijkstraParrallel
+class DijkstraSequentiell
 {
 public:
     string filename;
@@ -38,7 +38,7 @@ public:
     string tag;
 
 
-    DijkstraParrallel(string filename):
+    DijkstraSequentiell(string filename):
             filename(filename){}
 
 
