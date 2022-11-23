@@ -1,19 +1,20 @@
 #include <iostream>
 #include <thread>
 #include "DijkstraParrallel.h"
+#include "DijkstraSequentiell.h"
 
 using namespace std;
 int main(int argc, char *argv[])
 {
     cout << "Hello Dijkstra's World!" << endl;
 
-    auto filename = "/home/svenpete/CLionProjects/Dijkstra/USA-road-d.NY.gr";
+    auto filename = "/home/student/Schreibtisch/dijkstra/USA-road-d.NY.gr";
 
 
     auto par = DijkstraParrallel(filename);
+    auto seq = DijkstraSequentiell(filename);
 
-
-    // Creating parallel Dijkstra-graph
+   // Creating parallel Dijkstra-graph
     auto start_read_graph = chrono::high_resolution_clock::now();
     par.readGraph();
     auto end_read_graph = chrono::high_resolution_clock::now() - start_read_graph;
@@ -34,6 +35,28 @@ int main(int argc, char *argv[])
     auto end_exec_graph = chrono::high_resolution_clock::now() - start_read_graph;
     long long microseconds_exec_graph = chrono::duration_cast<chrono::microseconds>(end_exec_graph).count();
     cout <<"Creating parallel graph: " << microseconds_exec_graph <<  " us" << endl;
+
+    // Creating Sequentiell Dijkstra-graph
+    auto start_read_graph_seq = chrono::high_resolution_clock::now();
+    seq.readGraph();
+    auto end_read_graph_seq = chrono::high_resolution_clock::now() - start_read_graph_seq;
+
+    long long microseconds_read_graph_seq = chrono::duration_cast<chrono::microseconds>(end_read_graph_seq).count();
+    cout <<"Reading Sequentiell graph: " << microseconds_read_graph_seq << " us" << endl;
+
+
+    auto start_create_graph_seq = chrono::high_resolution_clock::now();
+    seq.createGraph();
+    auto end_create_graph_seq = chrono::high_resolution_clock::now() - start_read_graph_seq;
+    long long microseconds_create_graph_seq = chrono::duration_cast<chrono::microseconds>(end_create_graph_seq).count();
+    cout <<"Creating Sequentiell graph: " << microseconds_create_graph_seq <<  " us" << endl;
+
+
+    auto start_exec_graph_seq = chrono::high_resolution_clock::now();
+    seq.execGraph();
+    auto end_exec_graph_seq = chrono::high_resolution_clock::now() - start_read_graph_seq;
+    long long microseconds_exec_graph_seq = chrono::duration_cast<chrono::microseconds>(end_exec_graph_seq).count();
+    cout <<"Creating Sequentiell graph: " << microseconds_exec_graph_seq <<  " us" << endl;
 
     string input;
     do {

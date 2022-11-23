@@ -25,13 +25,13 @@ typedef struct
 {
     unsigned dest;
     unsigned dist;
-} dest_to_dist;
+} dest_to_dist_Seq;
 
 class DijkstraSequentiell
 {
 public:
     string filename;
-    vector<vector<dest_to_dist>> graph;
+    vector<vector<dest_to_dist_Seq>> graph;
     vector<unsigned> dist;
     vector<unsigned> prev;
     vector<bool> mrkd;
@@ -92,7 +92,7 @@ public:
     {
         for(unsigned i = 0; i < graph.size(); i++) {
             int minDistIdx = getMinDist();
-            vector<dest_to_dist> targetNode = graph[minDistIdx];
+            vector<dest_to_dist_Seq> targetNode = graph[minDistIdx];
             mrkd[minDistIdx] = true;
 
             for(unsigned i = 0; i < graph.size(); i++)
